@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a142bace6dcf4493a6ef0057fbe9a593" Name="Diagram1">
+        <EntityTypeShape EntityType="DBEntities.Clientes" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="DBEntities.Maderas" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="DBEntities.Roles" Width="1.5" PointX="0.75" PointY="2.125" />
+        <EntityTypeShape EntityType="DBEntities.TipoClientes" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="DBEntities.TipoMadera" Width="1.5" PointX="5.75" PointY="1.5" />
+        <EntityTypeShape EntityType="DBEntities.Usuarios" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="DBEntities.fk_tipo_cliente" />
+        <AssociationConnector Association="DBEntities.fk_tipo_madera" />
+        <AssociationConnector Association="DBEntities.fk_rol_usuario" />
+        <EntityTypeShape EntityType="DBEntities.Detalles" Width="1.5" PointX="8" PointY="4.5" />
+        <EntityTypeShape EntityType="DBEntities.Facturas" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="DBEntities.TipoFacturas" Width="1.5" PointX="3" PointY="10.5" />
+        <AssociationConnector Association="DBEntities.fk_cliente_factura" />
+        <AssociationConnector Association="DBEntities.fk_factura_det" />
+        <AssociationConnector Association="DBEntities.fk_madera_det" />
+        <AssociationConnector Association="DBEntities.fk_tipo_factura" />
+        <AssociationConnector Association="DBEntities.fk_usuario_factura" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

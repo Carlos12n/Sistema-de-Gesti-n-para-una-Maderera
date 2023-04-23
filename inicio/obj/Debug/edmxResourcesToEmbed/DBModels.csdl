@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MadereraEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="DBEntities.Clientes" />
+    <EntitySet Name="Maderas" EntityType="DBEntities.Maderas" />
+    <EntitySet Name="Roles" EntityType="DBEntities.Roles" />
+    <EntitySet Name="TipoClientes" EntityType="DBEntities.TipoClientes" />
+    <EntitySet Name="TipoMadera" EntityType="DBEntities.TipoMadera" />
+    <EntitySet Name="Usuarios" EntityType="DBEntities.Usuarios" />
+    <AssociationSet Name="fk_tipo_cliente" Association="DBEntities.fk_tipo_cliente">
+      <End Role="TipoClientes" EntitySet="TipoClientes" />
+      <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_madera" Association="DBEntities.fk_tipo_madera">
+      <End Role="TipoMadera" EntitySet="TipoMadera" />
+      <End Role="Maderas" EntitySet="Maderas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_rol_usuario" Association="DBEntities.fk_rol_usuario">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <EntitySet Name="Detalles" EntityType="DBEntities.Detalles" />
+    <EntitySet Name="Facturas" EntityType="DBEntities.Facturas" />
+    <EntitySet Name="TipoFacturas" EntityType="DBEntities.TipoFacturas" />
+    <AssociationSet Name="fk_cliente_factura" Association="DBEntities.fk_cliente_factura">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Facturas" EntitySet="Facturas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_factura_det" Association="DBEntities.fk_factura_det">
+      <End Role="Facturas" EntitySet="Facturas" />
+      <End Role="Detalles" EntitySet="Detalles" />
+    </AssociationSet>
+    <AssociationSet Name="fk_madera_det" Association="DBEntities.fk_madera_det">
+      <End Role="TipoMadera" EntitySet="TipoMadera" />
+      <End Role="Detalles" EntitySet="Detalles" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_factura" Association="DBEntities.fk_tipo_factura">
+      <End Role="TipoFacturas" EntitySet="TipoFacturas" />
+      <End Role="Facturas" EntitySet="Facturas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario_factura" Association="DBEntities.fk_usuario_factura">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Facturas" EntitySet="Facturas" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Id_cliente" />
+    </Key>
+    <Property Name="Id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_tipo_cliente" Type="Int32" Nullable="false" />
+    <Property Name="dni" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="apellido" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="sexo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="estado_civil" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="domicilio" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="true" />
+    <Property Name="correo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="fecha_Nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="estado_vigencia" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="TipoClientes" Relationship="DBEntities.fk_tipo_cliente" FromRole="Clientes" ToRole="TipoClientes" />
+    <NavigationProperty Name="Facturas" Relationship="DBEntities.fk_cliente_factura" FromRole="Clientes" ToRole="Facturas" />
+  </EntityType>
+  <EntityType Name="Maderas">
+    <Key>
+      <PropertyRef Name="idMaderas" />
+    </Key>
+    <Property Name="idMaderas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_tipoMad" Type="Int32" Nullable="false" />
+    <Property Name="descipcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="estadoVigencia" Type="Boolean" Nullable="false" />
+    <Property Name="stockActual" Type="Int32" Nullable="false" />
+    <Property Name="stockMinimo" Type="Int32" Nullable="false" />
+    <Property Name="precioCosto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="precioVenta" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="TipoMadera" Relationship="DBEntities.fk_tipo_madera" FromRole="Maderas" ToRole="TipoMadera" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="id_rol" />
+    </Key>
+    <Property Name="id_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="estado_vigencia" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="DBEntities.fk_rol_usuario" FromRole="Roles" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="TipoClientes">
+    <Key>
+      <PropertyRef Name="id_tipoCliente" />
+    </Key>
+    <Property Name="id_tipoCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="estado_vigencia" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="DBEntities.fk_tipo_cliente" FromRole="TipoClientes" ToRole="Clientes" />
+  </EntityType>
+  <EntityType Name="TipoMadera">
+    <Key>
+      <PropertyRef Name="id_tipoMadera" />
+    </Key>
+    <Property Name="id_tipoMadera" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="estadoVigencia" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Maderas" Relationship="DBEntities.fk_tipo_madera" FromRole="TipoMadera" ToRole="Maderas" />
+    <NavigationProperty Name="Detalles" Relationship="DBEntities.fk_madera_det" FromRole="TipoMadera" ToRole="Detalles" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id_usuario" />
+    </Key>
+    <Property Name="Id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_rol_usuario" Type="Int32" Nullable="false" />
+    <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="nombre_usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="pass" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="estado_vigencia" Type="Boolean" />
+    <Property Name="sexo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="estado_civil" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="telefono" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="domicilio" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="true" />
+    <Property Name="correo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="dni" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="fecha_Nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Roles" Relationship="DBEntities.fk_rol_usuario" FromRole="Usuarios" ToRole="Roles" />
+    <NavigationProperty Name="Facturas" Relationship="DBEntities.fk_usuario_factura" FromRole="Usuarios" ToRole="Facturas" />
+  </EntityType>
+  <Association Name="fk_tipo_cliente">
+    <End Type="DBEntities.TipoClientes" Role="TipoClientes" Multiplicity="1" />
+    <End Type="DBEntities.Clientes" Role="Clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoClientes">
+        <PropertyRef Name="id_tipoCliente" />
+      </Principal>
+      <Dependent Role="Clientes">
+        <PropertyRef Name="Id_tipo_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_madera">
+    <End Type="DBEntities.TipoMadera" Role="TipoMadera" Multiplicity="1" />
+    <End Type="DBEntities.Maderas" Role="Maderas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMadera">
+        <PropertyRef Name="id_tipoMadera" />
+      </Principal>
+      <Dependent Role="Maderas">
+        <PropertyRef Name="id_tipoMad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_rol_usuario">
+    <End Type="DBEntities.Roles" Role="Roles" Multiplicity="1" />
+    <End Type="DBEntities.Usuarios" Role="Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="id_rol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="Id_rol_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Detalles">
+    <Key>
+      <PropertyRef Name="id_detalle" />
+    </Key>
+    <Property Name="id_detalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_facturaDet" Type="Int32" Nullable="false" />
+    <Property Name="id_maderaDet" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <Property Name="precioUnitario" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="importeDetalle" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <NavigationProperty Name="Facturas" Relationship="DBEntities.fk_factura_det" FromRole="Detalles" ToRole="Facturas" />
+    <NavigationProperty Name="TipoMadera" Relationship="DBEntities.fk_madera_det" FromRole="Detalles" ToRole="TipoMadera" />
+  </EntityType>
+  <EntityType Name="Facturas">
+    <Key>
+      <PropertyRef Name="id_factura" />
+    </Key>
+    <Property Name="id_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumeroFac" Type="Int32" Nullable="false" />
+    <Property Name="id_usuarioFac" Type="Int32" Nullable="false" />
+    <Property Name="id_tipoFac" Type="Int32" Nullable="false" />
+    <Property Name="formaPago" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="id_clienteFac" Type="Int32" Nullable="false" />
+    <Property Name="total" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="estado_vigencia" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="DBEntities.fk_cliente_factura" FromRole="Facturas" ToRole="Clientes" />
+    <NavigationProperty Name="Detalles" Relationship="DBEntities.fk_factura_det" FromRole="Facturas" ToRole="Detalles" />
+    <NavigationProperty Name="TipoFacturas" Relationship="DBEntities.fk_tipo_factura" FromRole="Facturas" ToRole="TipoFacturas" />
+    <NavigationProperty Name="Usuarios" Relationship="DBEntities.fk_usuario_factura" FromRole="Facturas" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="TipoFacturas">
+    <Key>
+      <PropertyRef Name="id_tipoFactura" />
+    </Key>
+    <Property Name="id_tipoFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="estado_vigencia" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Facturas" Relationship="DBEntities.fk_tipo_factura" FromRole="TipoFacturas" ToRole="Facturas" />
+  </EntityType>
+  <Association Name="fk_cliente_factura">
+    <End Type="DBEntities.Clientes" Role="Clientes" Multiplicity="1" />
+    <End Type="DBEntities.Facturas" Role="Facturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Id_cliente" />
+      </Principal>
+      <Dependent Role="Facturas">
+        <PropertyRef Name="id_clienteFac" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_factura_det">
+    <End Type="DBEntities.Facturas" Role="Facturas" Multiplicity="1" />
+    <End Type="DBEntities.Detalles" Role="Detalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facturas">
+        <PropertyRef Name="id_factura" />
+      </Principal>
+      <Dependent Role="Detalles">
+        <PropertyRef Name="id_facturaDet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_madera_det">
+    <End Type="DBEntities.TipoMadera" Role="TipoMadera" Multiplicity="1" />
+    <End Type="DBEntities.Detalles" Role="Detalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMadera">
+        <PropertyRef Name="id_tipoMadera" />
+      </Principal>
+      <Dependent Role="Detalles">
+        <PropertyRef Name="id_maderaDet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_factura">
+    <End Type="DBEntities.TipoFacturas" Role="TipoFacturas" Multiplicity="1" />
+    <End Type="DBEntities.Facturas" Role="Facturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoFacturas">
+        <PropertyRef Name="id_tipoFactura" />
+      </Principal>
+      <Dependent Role="Facturas">
+        <PropertyRef Name="id_tipoFac" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario_factura">
+    <End Type="DBEntities.Usuarios" Role="Usuarios" Multiplicity="1" />
+    <End Type="DBEntities.Facturas" Role="Facturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Id_usuario" />
+      </Principal>
+      <Dependent Role="Facturas">
+        <PropertyRef Name="id_usuarioFac" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

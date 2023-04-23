@@ -1,0 +1,229 @@
+create database Maderera1; 
+
+create table Roles
+(
+   id_rol int identity(1,1) not null primary key,
+   descripcion varchar (200) not null,
+   estado_vigencia bit not null
+
+);
+
+
+ CREATE TABLE [Usuarios](
+	[Id_usuario] [int] IDENTITY(1,1) NOT NULL primary key,
+	[Id_rol_usuario] [int] NOT NULL,
+	[apellido] [nchar](20) NOT NULL,
+	[nombre] [nchar](20) NOT NULL,
+	[nombre_usuario] [nchar](20) NOT NULL,
+	[pass] [nchar](20) NOT NULL,
+	[estado_vigencia] [bit] NULL,
+	sexo nvarchar (30) not null,
+	estado_civil nvarchar (20) not null,
+	telefono nvarchar(10) not null,
+	domicilio nvarchar(90) not null,
+	correo nvarchar (30) not null,
+	dni nvarchar(8) not null,
+	fecha_Nacimiento date not null
+	constraint fk_rol_usuario foreign key (Id_rol_usuario) references Roles(id_rol)
+ );
+
+
+
+Lote de Carga
+
+insert into roles (descripcion, estado_vigencia) values ('Administrador', 1);
+insert into roles (descripcion, estado_vigencia) values ('Gerente', 1);
+insert into roles (descripcion, estado_vigencia) values ('Vendedor', 1);
+select * from roles;
+
+
+ insert into Usuarios 
+(Id_rol_usuario, apellido, nombre, nombre_usuario, pass,estado_vigencia,sexo, estado_civil,
+ telefono,domicilio, correo,dni,fecha_Nacimiento) 
+ values (1,'Navarro','Carlos','Carlos',1111,1,'Masculino','Soltero','3794121212','Las Piedras 3098','navarro754@gmail.com',
+ 34000000,CAST(N'1989-09-12' AS Date));
+
+ insert into Usuarios 
+(Id_rol_usuario, apellido, nombre, nombre_usuario, pass,estado_vigencia,sexo, estado_civil,
+ telefono,domicilio, correo,dni,fecha_Nacimiento) 
+ values (2,'Centurion','Gerardo','Gerardo',2222,1,'Masculino','Casado','3794131313','Cuba 5500','gerardoCen@gmail.com',
+ 12000123,CAST(N'1959-08-14' AS Date));
+
+ insert into Usuarios 
+(Id_rol_usuario, apellido, nombre, nombre_usuario, pass,estado_vigencia,sexo, estado_civil,
+ telefono,domicilio, correo,dni,fecha_Nacimiento) 
+ values (3,'Meza','Juan','Juan',3333,1,'Masculino','Soltero','3794141414','Cangallo 4550','juanigmw@gmail.com',
+ 37000451,CAST(N'1992-08-20' AS Date));
+ select * from Usuarios;
+
+ppara conexion
+select u.Id_usuario as id_usu,u.Id_rol_usuario as id_rol,u.apellido as apellido, u.nombre as nombre, u.nombre_usuario as usuario_nombre, u.pass as contraseña,
+ u.estado_vigencia as estadoV,u.sexo as sexo, u.edad as edad, u.estado_civil as civil_est, u.telefono as telefono, 
+ u.domicilio as direccion, u.correo as email, u.dni as DNI, u.fechaNac as nacimiento from Usuarios u;
+
+ select * from Roles;
+ select * from Usuarios;
+
+
+-----------------------------------------------------------------PARA LA SEGUNDA ENTREGA---------------------------------------------------------------------------
+
+
+create table TipoClientes
+(
+   id_tipoCliente int identity(1,1) not null primary key,
+   descripcion varchar (120) not null,
+   estado_vigencia bit not null
+
+);
+
+
+ CREATE TABLE [Clientes](
+	[Id_cliente] [int] IDENTITY(1,1) NOT NULL primary key,
+	[Id_tipo_cliente] [int] NOT NULL,
+	dni nvarchar(8) not null,
+	[apellido] [nchar](30) NOT NULL,
+	[nombre] [nchar](30) NOT NULL,
+	sexo nvarchar (30) not null,
+	estado_civil nvarchar (20) not null,
+	telefono nvarchar(10) not null,
+	domicilio nvarchar(90) not null,
+	correo nvarchar (30) not null,
+	fecha_Nacimiento date not null,
+	[estado_vigencia] [bit] not NULL,
+	constraint fk_tipo_cliente foreign key (Id_tipo_cliente) references TipoClientes(id_tipoCliente)
+ );
+
+
+
+
+                      Tipos de Maderas
+create TABLE [dbo].[TipoMadera](
+	[id_tipoMadera] [int] IDENTITY(1,1) primary key NOT NULL,
+	[descripcion] [varchar](100) not NULL,
+	[estadoVigencia] [bit] not NULL,
+ );
+
+
+		       Maderas
+
+
+CREATE TABLE [dbo].[Maderas](
+	[idMaderas] [int] IDENTITY(1,1) primary key NOT NULL,
+	[id_tipoMad] [int] NOT NULL,
+	[descipcion] [varchar](100) NOT NULL,
+	[estadoVigencia] [bit] NOT NULL,
+	[stockActual] [int] NOT NULL,
+	[stockMinimo] [int] NOT NULL,
+	[precioCosto] [decimal](18, 2) NOT NULL,
+	[precioVenta] [decimal](18, 2) NOT NULL,
+	
+	constraint fk_tipo_madera foreign key (id_tipoMad) references TipoMadera(id_tipoMadera)
+);
+
+
+                     TIPOS FACTURAS
+
+CREATE TABLE [TipoFacturas](
+	[id_tipoFactura] [int] identity(1,1) NOT NULL primary key,
+	[descripcion] [nvarchar](60) NOT NULL,
+	[estado_vigencia] [bit] NOT NULL,
+	);
+
+
+                    FACTURAS
+
+
+CREATE TABLE [Facturas](
+	[id_factura] [int] identity(1,1) NOT NULL primary key,
+	[NumeroFac] [int] NOT NULL,
+	[id_usuarioFac] [int] NOT NULL,
+	[id_tipoFac] [int] NOT NULL,
+	[formaPago] [varchar](30) NOT NULL,
+	[fecha] [date] NOT NULL,
+	[id_clienteFac] [int] NOT NULL,
+	[total] [decimal] NOT NULL,
+	[estado_vigencia] [bit] NOT NULL,
+	
+	constraint fk_tipo_factura foreign key (id_tipoFac) references TipoFacturas(id_tipoFactura),
+	constraint fk_cliente_factura foreign key (id_clienteFac) references Clientes(Id_Cliente),
+	constraint fk_usuario_factura foreign key (id_usuarioFac) references Usuarios(Id_usuario),
+
+	);
+
+
+                     DETALLES
+
+
+
+CREATE TABLE [Detalles](
+	[id_detalle] [int] identity(1,1) primary key NOT NULL,
+	[id_facturaDet] [int] not NULL,
+	[id_maderaDet] [int] not NULL,
+	[cantidad] [int] not NULL,
+	[precioUnitario] [decimal] not null,
+	[importeDetalle] [decimal] not null,
+
+	constraint fk_factura_det foreign key (id_facturaDet) references Facturas(id_factura),
+	constraint fk_madera_det foreign key (id_maderaDet) references TipoMadera(id_tipoMadera)
+	);
+
+
+**************************************************************LOTE DE CARGA*****************************************************************************************
+
+                     TIPOS DE CLIENTES
+
+insert into TipoClientes(descripcion, estado_vigencia) values ('Consumidor Final', 1);
+insert into TipoClientes (descripcion, estado_vigencia) values ('Responsable Inscripto', 1);
+insert into TipoClientes (descripcion, estado_vigencia) values ('otro', 1);
+
+
+		      CLIENTES
+
+ insert into Clientes
+(Id_tipo_cliente,dni, apellido, nombre, sexo, estado_civil, telefono,domicilio, correo,fecha_Nacimiento,estado_vigencia) 
+ values (1,'37043541','Mosna','Patricia','Femenino','Soltero','3794141414','VI del Centenario 2550','patoMosna@gmail.com',
+ CAST(N'1992-09-27' AS Date),1);
+
+			Tipos de Maderas
+
+insert into TipoMadera(descripcion, estadoVigencia) values ('Tirante', 1);
+insert into TipoMadera(descripcion, estadoVigencia) values ('Clavadoras', 1);
+
+			Maderas
+
+ insert into Maderas
+(id_tipoMad, descipcion, estadoVigencia, stockActual, stockMinimo,precioCosto,precioVenta) 
+ values (1,'2x2 metros',1,33,5,120,150);
+ insert into Maderas
+(id_tipoMad, descipcion, estadoVigencia, stockActual, stockMinimo,precioCosto,precioVenta) 
+ values (2,'4x2 metros',1,300,5,300,350);
+
+
+
+                       TIPOS FACTURAS
+
+
+insert into TipoFacturas(descripcion, estado_vigencia) values ('A', 1);
+insert into TipoFacturas (descripcion, estado_vigencia) values ('B', 1);
+insert into TipoFacturas (descripcion, estado_vigencia) values ('C', 1);
+
+*********************************************************************************************************************************************************************
+
+                     CONSULTA PARA REPORTES
+
+
+
+select f.id_factura, f.fecha, c.nombre +','+c.apellido as CLIENTE,
+       PRODUCTOS = stuff((select ' - '+'x'+convert(varchar(10), d2.cantidad) + '  ' + t.descripcion
+	               from detalles d2
+				   inner join TipoMadera t on t.id_tipoMadera = d2.id_maderaDet
+				   where d2.id_facturaDet = d1.id_facturaDet
+				   for xml path ('')), 1, 2,''),
+       sum(d1.cantidad * d1.precioUnitario) as TotalFactura
+	   from Facturas f
+	   inner join Clientes c on c.Id_cliente = f.id_clienteFac
+	   inner join Detalles d1 on d1.id_facturaDet = f.id_factura
+	   
+	   where f.fecha between '2022/11/01' and '2022/11/09'
+	   group by f.id_factura, d1.id_facturaDet, f.fecha, c.nombre, c.apellido 
+	   order by f.id_factura

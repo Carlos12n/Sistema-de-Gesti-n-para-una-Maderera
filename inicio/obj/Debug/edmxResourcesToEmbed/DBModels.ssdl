@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Id_cliente" />
+    </Key>
+    <Property Name="Id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_tipo_cliente" Type="int" Nullable="false" />
+    <Property Name="dni" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="apellido" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="nombre" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="sexo" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="estado_civil" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="domicilio" Type="nvarchar" MaxLength="90" Nullable="false" />
+    <Property Name="correo" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="fecha_Nacimiento" Type="date" Nullable="false" />
+    <Property Name="estado_vigencia" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Detalles">
+    <Key>
+      <PropertyRef Name="id_detalle" />
+    </Key>
+    <Property Name="id_detalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_facturaDet" Type="int" Nullable="false" />
+    <Property Name="id_maderaDet" Type="int" Nullable="false" />
+    <Property Name="cantidad" Type="int" Nullable="false" />
+    <Property Name="precioUnitario" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="importeDetalle" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Facturas">
+    <Key>
+      <PropertyRef Name="id_factura" />
+    </Key>
+    <Property Name="id_factura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroFac" Type="int" Nullable="false" />
+    <Property Name="id_usuarioFac" Type="int" Nullable="false" />
+    <Property Name="id_tipoFac" Type="int" Nullable="false" />
+    <Property Name="formaPago" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="id_clienteFac" Type="int" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="estado_vigencia" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Maderas">
+    <Key>
+      <PropertyRef Name="idMaderas" />
+    </Key>
+    <Property Name="idMaderas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_tipoMad" Type="int" Nullable="false" />
+    <Property Name="descipcion" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="estadoVigencia" Type="bit" Nullable="false" />
+    <Property Name="stockActual" Type="int" Nullable="false" />
+    <Property Name="stockMinimo" Type="int" Nullable="false" />
+    <Property Name="precioCosto" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="precioVenta" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="id_rol" />
+    </Key>
+    <Property Name="id_rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="estado_vigencia" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoClientes">
+    <Key>
+      <PropertyRef Name="id_tipoCliente" />
+    </Key>
+    <Property Name="id_tipoCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="120" Nullable="false" />
+    <Property Name="estado_vigencia" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoFacturas">
+    <Key>
+      <PropertyRef Name="id_tipoFactura" />
+    </Key>
+    <Property Name="id_tipoFactura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="nvarchar" MaxLength="60" Nullable="false" />
+    <Property Name="estado_vigencia" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoMadera">
+    <Key>
+      <PropertyRef Name="id_tipoMadera" />
+    </Key>
+    <Property Name="id_tipoMadera" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="estadoVigencia" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id_usuario" />
+    </Key>
+    <Property Name="Id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_rol_usuario" Type="int" Nullable="false" />
+    <Property Name="apellido" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="nombre" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="nombre_usuario" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="pass" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="estado_vigencia" Type="bit" />
+    <Property Name="sexo" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="estado_civil" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="domicilio" Type="nvarchar" MaxLength="90" Nullable="false" />
+    <Property Name="correo" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="dni" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="fecha_Nacimiento" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_cliente_factura">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Facturas" Type="Self.Facturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Id_cliente" />
+      </Principal>
+      <Dependent Role="Facturas">
+        <PropertyRef Name="id_clienteFac" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_factura_det">
+    <End Role="Facturas" Type="Self.Facturas" Multiplicity="1" />
+    <End Role="Detalles" Type="Self.Detalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facturas">
+        <PropertyRef Name="id_factura" />
+      </Principal>
+      <Dependent Role="Detalles">
+        <PropertyRef Name="id_facturaDet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_madera_det">
+    <End Role="TipoMadera" Type="Self.TipoMadera" Multiplicity="1" />
+    <End Role="Detalles" Type="Self.Detalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMadera">
+        <PropertyRef Name="id_tipoMadera" />
+      </Principal>
+      <Dependent Role="Detalles">
+        <PropertyRef Name="id_maderaDet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_rol_usuario">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="id_rol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="Id_rol_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_cliente">
+    <End Role="TipoClientes" Type="Self.TipoClientes" Multiplicity="1" />
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoClientes">
+        <PropertyRef Name="id_tipoCliente" />
+      </Principal>
+      <Dependent Role="Clientes">
+        <PropertyRef Name="Id_tipo_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_factura">
+    <End Role="TipoFacturas" Type="Self.TipoFacturas" Multiplicity="1" />
+    <End Role="Facturas" Type="Self.Facturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoFacturas">
+        <PropertyRef Name="id_tipoFactura" />
+      </Principal>
+      <Dependent Role="Facturas">
+        <PropertyRef Name="id_tipoFac" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_madera">
+    <End Role="TipoMadera" Type="Self.TipoMadera" Multiplicity="1" />
+    <End Role="Maderas" Type="Self.Maderas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMadera">
+        <PropertyRef Name="id_tipoMadera" />
+      </Principal>
+      <Dependent Role="Maderas">
+        <PropertyRef Name="id_tipoMad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario_factura">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="Facturas" Type="Self.Facturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Id_usuario" />
+      </Principal>
+      <Dependent Role="Facturas">
+        <PropertyRef Name="id_usuarioFac" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBEntitiesStoreContainer">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Detalles" EntityType="Self.Detalles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Facturas" EntityType="Self.Facturas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Maderas" EntityType="Self.Maderas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoClientes" EntityType="Self.TipoClientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoFacturas" EntityType="Self.TipoFacturas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoMadera" EntityType="Self.TipoMadera" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_cliente_factura" Association="Self.fk_cliente_factura">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Facturas" EntitySet="Facturas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_factura_det" Association="Self.fk_factura_det">
+      <End Role="Facturas" EntitySet="Facturas" />
+      <End Role="Detalles" EntitySet="Detalles" />
+    </AssociationSet>
+    <AssociationSet Name="fk_madera_det" Association="Self.fk_madera_det">
+      <End Role="TipoMadera" EntitySet="TipoMadera" />
+      <End Role="Detalles" EntitySet="Detalles" />
+    </AssociationSet>
+    <AssociationSet Name="fk_rol_usuario" Association="Self.fk_rol_usuario">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_cliente" Association="Self.fk_tipo_cliente">
+      <End Role="TipoClientes" EntitySet="TipoClientes" />
+      <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_factura" Association="Self.fk_tipo_factura">
+      <End Role="TipoFacturas" EntitySet="TipoFacturas" />
+      <End Role="Facturas" EntitySet="Facturas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_madera" Association="Self.fk_tipo_madera">
+      <End Role="TipoMadera" EntitySet="TipoMadera" />
+      <End Role="Maderas" EntitySet="Maderas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario_factura" Association="Self.fk_usuario_factura">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Facturas" EntitySet="Facturas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
